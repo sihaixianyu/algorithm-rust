@@ -1,8 +1,10 @@
+pub mod algorithm;
+pub mod leetcode;
+
 #[cfg(test)]
 mod tests {
     #[test]
-    fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
+    fn hello_test() {
+        println!("Hello Test!")
     }
 }
