@@ -1,23 +1,23 @@
-pub fn quick_sort(nums: &mut [i32], s: i32, e: i32) {
+pub fn quick_sort<T: PartialOrd>(vals: &mut [T], s: isize, e: isize) {
     if s >= e {
         return;
     }
 
-    let pivot = nums[s as usize];
-    let (mut lp, mut rp) = (s, e);
+    let pivot_idx = s as usize;
+    let (mut lp, mut rp) = (s as usize, e as usize);
     while lp < rp {
-        while lp < rp && nums[rp as usize] >= pivot {
+        while lp < rp && vals[rp] >= vals[pivot_idx] {
             rp -= 1;
         }
-        while lp < rp && nums[lp as usize] <= pivot {
+        while lp < rp && vals[lp] <= vals[pivot_idx] {
             lp += 1
         }
-        nums.swap(lp as usize, rp as usize);
+        vals.swap(lp, rp);
     }
-    nums.swap(s as usize, lp as usize);
+    vals.swap(s as usize, lp);
 
-    quick_sort(nums, s, lp - 1);
-    quick_sort(nums, lp + 1, e);
+    quick_sort(vals, s, lp as isize - 1);
+    quick_sort(vals, lp as isize + 1, e);
 }
 
 #[cfg(test)]
@@ -27,18 +27,18 @@ mod tests {
     #[test]
     fn test_case1() {
         let mut nums = vec![3, 1, 2, 4];
-        let n = nums.len();
+        let n = nums.len() as isize;
 
-        quick_sort(nums.as_mut_slice(), 0, (n - 1) as i32);
+        quick_sort(nums.as_mut_slice(), 0, n - 1);
         assert_eq!(vec![1, 2, 3, 4], nums);
     }
 
     #[test]
     fn test_case2() {
         let mut nums = vec![2, 7, 11, 15];
-        let n = nums.len();
+        let n = nums.len() as isize;
 
-        quick_sort(nums.as_mut_slice(), 0, (n - 1) as i32);
+        quick_sort(nums.as_mut_slice(), 0, n - 1);
         assert_eq!(vec![2, 7, 11, 15], nums);
     }
 }
