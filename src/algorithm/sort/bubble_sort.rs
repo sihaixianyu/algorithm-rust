@@ -1,4 +1,4 @@
-pub fn bubble_sort(nums: &mut [i32]) {
+pub fn bubble_sort<T: PartialOrd>(nums: &mut [T]) {
     for i in 0..nums.len() {
         for j in 0..nums.len()-1-i {
             if nums[j] > nums[j+1] {
