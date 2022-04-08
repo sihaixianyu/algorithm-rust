@@ -23,6 +23,41 @@ pub fn coin_change(coins: Vec<i32>, amount: i32) -> i32 {
     dp[amount as usize]
 }
 
+// pub fn coin_change(coins: Vec<i32>, amount: i32) -> i32 {
+//     if amount == 0 {
+//         return 0;
+//     }
+
+//     let mut memo = vec![i32::MAX; (amount + 1) as usize];
+
+//     fn dp(coins: &[i32], amount: i32, memo: &mut [i32]) -> i32 {
+//         if amount == 0 {
+//             return 0;
+//         } else if amount < 0 {
+//             return -1;
+//         }
+
+//         if memo[amount as usize] != i32::MAX {
+//             return memo[amount as usize];
+//         }
+
+//         let mut res = i32::MAX;
+//         for &c in &coins[..] {
+//             let sub_res = dp(&coins, amount - c, memo);
+//             if sub_res != -1 {
+//                 res = min(res, sub_res + 1);
+//             }
+//         }
+
+//         res = if res == i32::MAX { -1 } else { res };
+//         memo[amount as usize] = res;
+
+//         res
+//     }
+
+//     dp(&coins[..], amount, &mut memo[..])
+// }
+
 #[cfg(test)]
 mod tests {
     use super::*;
