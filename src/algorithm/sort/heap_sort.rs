@@ -1,3 +1,4 @@
+#[allow(unused)]
 pub fn heap_sort<T: PartialOrd + Copy>(vals: &mut [T]) {
     
 }

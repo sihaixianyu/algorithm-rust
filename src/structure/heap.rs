@@ -1,5 +1,3 @@
-use std::process::id;
-
 pub struct Heap<T: Default> {
     len: usize,
     vals: Vec<T>,
@@ -31,11 +29,7 @@ where
         self.vals.push(val);
 
         // Heapify from bottom to top
-        let mut idx = self.len();
-        while idx > 1 && (self.less)(&self.vals[idx], &self.vals[idx / 2]) {
-            self.vals.swap(idx / 2, idx);
-            idx /= 2;
-        }
+        self.heapify_upward(self.len)
     }
 
     pub fn pop(&mut self) -> Option<T> {
@@ -46,12 +40,19 @@ where
         let len = self.len();
         self.vals.swap(1, len);
         self.len -= 1;
-        self.heapify_down(1);
+        self.heapify_downward(1);
 
         self.vals.pop()
     }
 
-    fn heapify_down(&mut self, mut idx: usize) {
+    fn heapify_upward(&mut self, mut idx: usize) {
+        while idx > 1 && (self.less)(&self.vals[idx], &self.vals[idx / 2]) {
+            self.vals.swap(idx / 2, idx);
+            idx /= 2;
+        }
+    }
+
+    fn heapify_downward(&mut self, mut idx: usize) {
         let len = self.len();
         while 2 * idx <= len {
             let mut j = 2 * idx;
@@ -62,7 +63,7 @@ where
             if (self.less)(&self.vals[idx], &self.vals[j]) {
                 break;
             }
-            
+
             self.vals.swap(idx, j);
             idx = j;
         }
@@ -87,6 +88,7 @@ impl MaxHeap {
     }
 }
 
+#[cfg(test)]
 mod tests {
     use super::*;
 
