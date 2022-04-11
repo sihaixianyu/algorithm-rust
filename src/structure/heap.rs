@@ -12,7 +12,7 @@ where
         Self {
             len: 0,
             vals: vec![T::default()],
-            less: less,
+            less,
         }
     }
 
@@ -29,7 +29,7 @@ where
         self.vals.push(val);
 
         // Heapify from bottom to top
-        self.heapify_upward(self.len)
+        self.heapify_up(self.len)
     }
 
     pub fn pop(&mut self) -> Option<T> {
@@ -40,19 +40,19 @@ where
         let len = self.len();
         self.vals.swap(1, len);
         self.len -= 1;
-        self.heapify_downward(1);
+        self.heapify_down(1);
 
         self.vals.pop()
     }
 
-    fn heapify_upward(&mut self, mut idx: usize) {
+    fn heapify_up(&mut self, mut idx: usize) {
         while idx > 1 && (self.less)(&self.vals[idx], &self.vals[idx / 2]) {
             self.vals.swap(idx / 2, idx);
             idx /= 2;
         }
     }
 
-    fn heapify_downward(&mut self, mut idx: usize) {
+    fn heapify_down(&mut self, mut idx: usize) {
         let len = self.len();
         while 2 * idx <= len {
             let mut j = 2 * idx;
@@ -107,5 +107,23 @@ mod tests {
         assert_eq!(heap.pop(), Some(4));
         assert_eq!(heap.pop(), Some(9));
         assert_eq!(heap.pop(), Some(11));
+    }
+
+    #[test]
+    fn test_max_heap() {
+        let mut heap = MaxHeap::new();
+        heap.push(4);
+        heap.push(2);
+        heap.push(9);
+        heap.push(11);
+
+        assert_eq!(heap.is_empty(), false);
+        assert_eq!(heap.len(), 4);
+
+        assert_eq!(heap.pop(), Some(11));
+        assert_eq!(heap.pop(), Some(9));
+        assert_eq!(heap.pop(), Some(4));
+        assert_eq!(heap.pop(), Some(2));
+        assert_eq!(heap.pop(), None);
     }
 }

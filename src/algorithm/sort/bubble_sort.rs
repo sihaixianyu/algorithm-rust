@@ -1,4 +1,4 @@
-pub fn bubble_sort<T: PartialOrd>(nums: &mut [T]) {
+pub fn bubble_sort<T: Ord>(nums: &mut [T]) {
     for i in 0..nums.len() {
         for j in 0..nums.len()-1-i {
             if nums[j] > nums[j+1] {
@@ -16,7 +16,7 @@ mod tests {
     fn test_case1() {
         let mut nums = vec![3, 1, 2, 4];
 
-        bubble_sort(nums.as_mut_slice());
+        bubble_sort(&mut nums[..]);
         assert_eq!(vec![1, 2, 3, 4], nums);
     }
 
@@ -24,7 +24,7 @@ mod tests {
     fn test_case2() {
         let mut nums = vec![2, 7, 11, 15];
         
-        bubble_sort(nums.as_mut_slice());
+        bubble_sort(&mut nums[..]);
         assert_eq!(vec![2, 7, 11, 15], nums);
     }
 }

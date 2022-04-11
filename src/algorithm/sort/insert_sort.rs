@@ -1,4 +1,4 @@
-pub fn insert_sort<T: PartialOrd + Copy>(vals: &mut [T]) {
+pub fn insert_sort<T: Ord + Copy>(vals: &mut [T]) {
     for i in 1..vals.len() {
         let ins_val = vals[i];
         let mut j = i;
@@ -18,17 +18,17 @@ mod tests {
 
     #[test]
     fn test_case1() {
-        let mut vals = vec![3, 1, 2, 4];
+        let mut nums = vec![3, 1, 2, 4];
 
-        insert_sort(&mut vals[..]);
-        assert_eq!(vec![1, 2, 3, 4], vals);
+        insert_sort(&mut nums[..]);
+        assert_eq!(vec![1, 2, 3, 4], nums);
     }
 
     #[test]
     fn test_case2() {
-        let mut vals = vec![2, 7, 11, 15];
+        let mut nums = vec![2, 7, 11, 15];
 
-        insert_sort(&mut vals[..]);
-        assert_eq!(vec![2, 7, 11, 15], vals);
+        insert_sort(&mut nums[..]);
+        assert_eq!(vec![2, 7, 11, 15], nums);
     }
 }
