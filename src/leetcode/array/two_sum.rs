@@ -22,11 +22,12 @@ pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
 
 #[cfg(test)]
 mod tests {
-    use crate::leetcode::array::two_sum::two_sum;
+    use super::*;
 
     #[test]
     fn test_case1() {
         let nums = vec![3, 2, 4];
+
         let res = two_sum(nums, 6);
         assert_eq!(vec![2, 1], res);
     }
@@ -34,6 +35,7 @@ mod tests {
     #[test]
     fn test_case2() {
         let nums = vec![2, 7, 11, 15];
+
         let res = two_sum(nums, 9);
         assert_eq!(vec![1, 0], res);
     }

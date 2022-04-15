@@ -45,27 +45,27 @@ where
         self.vals.pop()
     }
 
-    fn heapify_up(&mut self, mut idx: usize) {
-        while idx > 1 && (self.less)(&self.vals[idx], &self.vals[idx / 2]) {
-            self.vals.swap(idx / 2, idx);
-            idx /= 2;
+    fn heapify_up(&mut self, mut child: usize) {
+        while child > 1 && (self.less)(&self.vals[child], &self.vals[child / 2]) {
+            self.vals.swap(child / 2, child);
+            child /= 2;
         }
     }
 
-    fn heapify_down(&mut self, mut idx: usize) {
+    fn heapify_down(&mut self, mut parent: usize) {
         let len = self.len();
-        while 2 * idx <= len {
-            let mut j = 2 * idx;
+        while 2 * parent <= len {
+            let mut j = 2 * parent;
             if j < len && (self.less)(&self.vals[j + 1], &self.vals[j]) {
                 j += 1;
             }
 
-            if (self.less)(&self.vals[idx], &self.vals[j]) {
+            if (self.less)(&self.vals[parent], &self.vals[j]) {
                 break;
             }
 
-            self.vals.swap(idx, j);
-            idx = j;
+            self.vals.swap(parent, j);
+            parent = j;
         }
     }
 }

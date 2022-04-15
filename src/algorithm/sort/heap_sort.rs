@@ -9,11 +9,11 @@ pub fn heap_sort<T: Ord + Copy>(vals: &mut [T]) {
     }
 }
 
-fn heap_down<T: Ord + Copy>(vals: &mut [T], mut root: usize, n: usize) {
-    while root * 2 + 1 < n {
+fn heap_down<T: Ord + Copy>(vals: &mut [T], mut root: usize, end: usize) {
+    while root * 2 + 1 < end {
         let mut child = root * 2 + 1;
-        if child + 1 < n && vals[child] < vals[child + 1] {
-            child = child + 1;
+        if child + 1 < end && vals[child] < vals[child + 1] {
+            child = child + 1
         }
 
         if vals[root] > vals[child] {
