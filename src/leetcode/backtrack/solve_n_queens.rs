@@ -30,32 +30,27 @@ fn backtrack(res: &mut Vec<Vec<String>>, board: &mut Vec<Vec<char>>, row: usize)
 }
 
 fn is_valid(board: &Vec<Vec<char>>, row: usize, col: usize) -> bool {
-    let n = board.len() as i32;
+    let n = board.len();
 
-    let mut i = row as i32;
-    while i >= 0 {
-        if board[i as usize][col] == 'Q' {
+    // Check the same column
+    for i in (0..row).rev() {
+        if board[i][col] == 'Q' {
             return false;
         }
-        i -= 1;
     }
 
-    let (mut i, mut j) = (row as i32, col as i32);
-    while i >= 0 && j >= 0 {
-        if board[i as usize][j as usize] == 'Q' {
+    // Check the upper left diagonal
+    for (i, j) in (0..row).rev().zip((0..col).rev()) {
+        if board[i][j] == 'Q' {
             return false;
         }
-        i -= 1;
-        j -= 1;
     }
 
-    let (mut i, mut j) = (row as i32, col as i32);
-    while i >= 0 && j < n {
-        if board[i as usize][j as usize] == 'Q' {
+    // Check upper right diagonal
+    for (i, j) in (0..row).rev().zip(col..n) {
+        if board[i][j] == 'Q' {
             return false;
         }
-        i -= 1;
-        j += 1;
     }
 
     true

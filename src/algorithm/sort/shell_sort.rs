@@ -19,6 +19,6 @@ pub mod tests {
         let mut nums = vec![2, 7, 11, 15];
 
         shell_sort(&mut nums[..]);
-        assert_eq!(vec![2, 7, 11, 15], nums)
+        assert_eq!(vec![2, 7, 11, 15], nums);
     }
 }
