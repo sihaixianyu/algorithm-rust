@@ -1,21 +1,8 @@
-// use std::cmp::Ordering;
-
 pub fn min_number(nums: Vec<i32>) -> String {
     let mut strings: Vec<String> = nums.into_iter().map(|i| i.to_string()).collect();
     strings.sort_by(|a, b| format!("{}{}", a, b).cmp(&format!("{}{}", b, a)));
     strings.into_iter().reduce(|a, b| a + &b).unwrap()
 }
-
-// fn compare(a: &String, b: &String) -> Ordering {
-//     let num1 = format!("{}{}", a, b).parse::<i32>().unwrap();
-//     let num2 = format!("{}{}", b, a).parse::<i32>().unwrap();
-
-//     return if num1 < num2 {
-//         Ordering::Less
-//     } else {
-//         Ordering::Greater
-//     };
-// }
 
 #[cfg(test)]
 mod tests {
