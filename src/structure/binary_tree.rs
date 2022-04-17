@@ -1,4 +1,4 @@
-use std::{cell::RefCell, rc::Rc, collections::VecDeque};
+use std::{cell::RefCell, collections::VecDeque, rc::Rc};
 
 type Link = Option<Rc<RefCell<TreeNode>>>;
 
@@ -45,54 +45,60 @@ impl BinaryTree {
             return BinaryTree { root: None, len: 0 };
         }
 
+        if vals[0] == null {
+            panic!("root can't be null");
+        }
+
         let root = TreeNode::new(vals[0]).as_rc();
         let mut queue = VecDeque::from(vec![root.clone()]);
         // Used for skip node of null value
         let mut skip = 0;
+        let mut len = 1;
 
         let mut i = 1;
         while i < vals.len() {
             if vals[i] == null {
                 skip += 1;
+                i += 1;
+                continue;
             }
 
             let curr = queue.front().unwrap().clone();
             let new_link = TreeNode::new(vals[i]).as_rc();
-
+            
             if curr.borrow().left.is_none() {
-                if skip > 0 {
-                    skip -= 1;
-                } else {
+                if skip == 0 {
                     queue.push_back(new_link.clone());
                     curr.borrow_mut().left = Some(new_link);
-
                     i += 1;
+                    len += 1;
                     continue;
-                }
-            }
-            if curr.borrow().right.is_none() {
-                if skip > 0 {
-                    skip -= 1;
                 } else {
-                    queue.pop_front();
-                    queue.push_back(new_link.clone());
-                    curr.borrow_mut().right = Some(new_link);
-
-                    i += 1;
-                    continue;
+                    skip -= 1;
                 }
             }
-
-            queue.pop_front();
 
             if skip == 0 {
+                queue.pop_front();
+                queue.push_back(new_link.clone());
+                curr.borrow_mut().right = Some(new_link);
                 i += 1;
+                len += 1;
+                continue;
+            } else {
+                skip -= 1;
             }
+
+            if skip > 0 && queue.len() == 1 {
+                panic!("set node{{ val: {} }} as child of empty node", vals[i])
+            }
+            
+            queue.pop_front();
         }
 
         BinaryTree {
             root: Some(root),
-            len: vals.len(),
+            len: len,
         }
     }
 }
@@ -151,9 +157,11 @@ mod tests {
 
     #[test]
     fn test_from_slice() {
-        let tree = BinaryTree::from_slice(&vec![1, 2, 3][..]);
-        assert_eq!(3, tree.len());
+        let tree = BinaryTree::from_slice(&vec![1, 2, 3, null, null, 4, 5][..]);
+        assert_eq!(5, tree.len());
+        println!("{:?}", preorder_traverse(&tree.root));
     }
+
     #[test]
     fn test_preorder_traverse() {
         let tree = BinaryTree::from_slice(&vec![1, 2, 3][..]);
