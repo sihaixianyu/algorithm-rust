@@ -1,5 +1,8 @@
 fn main() {
-    let s1 = "32".to_string();
-    let s2 = Rc::new();
-    println!("{:?}", s1.cmp(&s2));
+    let a = [0, 1, 2];
+
+    let mut iter = a.iter().filter(|&&x| x > 1); // two &s
+
+    assert_eq!(iter.next(), Some(&2));
+    assert_eq!(iter.next(), None);
 }

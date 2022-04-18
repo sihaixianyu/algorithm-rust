@@ -24,36 +24,41 @@ impl TreeNode {
 }
 
 #[allow(non_upper_case_globals)]
-const null: i32 = i32::MAX;
+pub const null: i32 = i32::MAX;
 
 pub struct BinaryTree {
-    root: Link,
-    len: usize,
+    pub root: Link,
+    size: usize,
 }
 
 impl BinaryTree {
     pub fn new() -> BinaryTree {
-        BinaryTree { root: None, len: 0 }
+        BinaryTree {
+            root: None,
+            size: 0,
+        }
     }
 
-    pub fn len(&self) -> usize {
-        self.len
+    pub fn size(&self) -> usize {
+        self.size
     }
 
     pub fn from_slice(vals: &[i32]) -> BinaryTree {
         if vals.len() == 0 {
-            return BinaryTree { root: None, len: 0 };
+            return BinaryTree {
+                root: None,
+                size: 0,
+            };
         }
 
         if vals[0] == null {
-            panic!("root can't be null");
+            panic!("root can't be empty");
         }
 
-        let root = TreeNode::new(vals[0]).as_rc();
-        let mut queue = VecDeque::from(vec![root.clone()]);
         // Used for skip node of null value
         let mut skip = 0;
-        let mut len = 1;
+        let root = TreeNode::new(vals[0]).as_rc();
+        let mut queue = VecDeque::from(vec![root.clone()]);
 
         let mut i = 1;
         while i < vals.len() {
@@ -65,13 +70,12 @@ impl BinaryTree {
 
             let curr = queue.front().unwrap().clone();
             let new_link = TreeNode::new(vals[i]).as_rc();
-            
+
             if curr.borrow().left.is_none() {
                 if skip == 0 {
                     queue.push_back(new_link.clone());
                     curr.borrow_mut().left = Some(new_link);
                     i += 1;
-                    len += 1;
                     continue;
                 } else {
                     skip -= 1;
@@ -83,7 +87,6 @@ impl BinaryTree {
                 queue.push_back(new_link.clone());
                 curr.borrow_mut().right = Some(new_link);
                 i += 1;
-                len += 1;
                 continue;
             } else {
                 skip -= 1;
@@ -92,14 +95,44 @@ impl BinaryTree {
             if skip > 0 && queue.len() == 1 {
                 panic!("set node{{ val: {} }} as child of empty node", vals[i])
             }
-            
+
             queue.pop_front();
         }
 
         BinaryTree {
             root: Some(root),
-            len: len,
+            size: vals.iter().filter(|&&x| x != null).count(),
         }
+    }
+
+    pub fn level_traverse(&self) -> Vec<i32> {
+        if self.root.is_none() {
+            return vec![];
+        }
+
+        let mut res = vec![];
+        let mut queue = VecDeque::new();
+        queue.push_back(self.root.as_ref().unwrap().clone());
+
+        while queue.len() > 0 {
+            let mut curr: Rc<RefCell<TreeNode>>;
+            let size = queue.len();
+
+            for _ in 0..size {
+                curr = queue.pop_front().unwrap();
+                res.push(curr.borrow().val);
+
+                if let Some(left) = &curr.borrow().left {
+                    queue.push_back(left.clone());
+                }
+
+                if let Some(right) = &curr.borrow().right {
+                    queue.push_back(right.clone());
+                }
+            }
+        }
+
+        res
     }
 }
 
@@ -158,8 +191,15 @@ mod tests {
     #[test]
     fn test_from_slice() {
         let tree = BinaryTree::from_slice(&vec![1, 2, 3, null, null, 4, 5][..]);
-        assert_eq!(5, tree.len());
+        assert_eq!(5, tree.size());
         println!("{:?}", preorder_traverse(&tree.root));
+    }
+
+    #[test]
+    fn test_level_traverse() {
+        let tree = BinaryTree::from_slice(&vec![1, 2, 3, null, null, 4, 5][..]);
+        assert_eq!(5, tree.size());
+        println!("{:?}", tree.level_traverse());
     }
 
     #[test]
