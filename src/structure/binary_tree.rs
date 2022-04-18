@@ -18,7 +18,7 @@ impl TreeNode {
         }
     }
 
-    pub fn as_rc(self) -> Rc<RefCell<Self>> {
+    pub fn into_rc(self) -> Rc<RefCell<Self>> {
         Rc::new(RefCell::new(self))
     }
 }
@@ -51,13 +51,9 @@ impl BinaryTree {
             };
         }
 
-        if vals[0] == null {
-            panic!("root can't be empty");
-        }
-
         // Used for skip node of null value
         let mut skip = 0;
-        let root = TreeNode::new(vals[0]).as_rc();
+        let root = TreeNode::new(vals[0]).into_rc();
         let mut queue = VecDeque::from(vec![root.clone()]);
 
         let mut i = 1;
@@ -69,7 +65,7 @@ impl BinaryTree {
             }
 
             let curr = queue.front().unwrap().clone();
-            let new_link = TreeNode::new(vals[i]).as_rc();
+            let new_link = TreeNode::new(vals[i]).into_rc();
 
             if curr.borrow().left.is_none() {
                 if skip == 0 {
@@ -83,17 +79,13 @@ impl BinaryTree {
             }
 
             if skip == 0 {
-                queue.pop_front();
                 queue.push_back(new_link.clone());
                 curr.borrow_mut().right = Some(new_link);
+                queue.pop_front();
                 i += 1;
                 continue;
             } else {
                 skip -= 1;
-            }
-
-            if skip > 0 && queue.len() == 1 {
-                panic!("set node{{ val: {} }} as child of empty node", vals[i])
             }
 
             queue.pop_front();
