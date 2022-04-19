@@ -1,5 +1,5 @@
-pub mod array;
-pub mod dynamic;
-pub mod backtrack;
-pub mod string;
-pub mod tree;
+pub mod hash;
+pub mod dp;
+pub mod dfs;
+pub mod sort;
+pub mod bfs;

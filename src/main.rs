@@ -1,8 +1,5 @@
 fn main() {
-    let a = [0, 1, 2];
-
-    let mut iter = a.iter().filter(|&&x| x > 1); // two &s
-
-    assert_eq!(iter.next(), Some(&2));
-    assert_eq!(iter.next(), None);
+    let s1 = "hello".to_string();
+    let s2 = "hello".to_string();
+    assert_eq!(&s1, &s2)
 }
