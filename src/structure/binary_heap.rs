@@ -1,10 +1,10 @@
-pub struct Heap<T: Default> {
+pub struct BinaryHeap<T: Default> {
     len: usize,
     vals: Vec<T>,
     less: fn(&T, &T) -> bool,
 }
 
-impl<T> Heap<T>
+impl<T> BinaryHeap<T>
 where
     T: Default,
 {
@@ -70,21 +70,21 @@ where
     }
 }
 
-pub struct MinHeap;
+pub struct MinBinaryHeap;
 
-impl MinHeap {
+impl MinBinaryHeap {
     #[allow(clippy::new_ret_no_self)]
-    pub fn new<T: Default + Ord>() -> Heap<T> {
-        Heap::new(|a, b| a < b)
+    pub fn new<T: Default + Ord>() -> BinaryHeap<T> {
+        BinaryHeap::new(|a, b| a < b)
     }
 }
 
-pub struct MaxHeap;
+pub struct MaxBinaryHeap;
 
-impl MaxHeap {
+impl MaxBinaryHeap {
     #[allow(clippy::new_ret_no_self)]
-    pub fn new<T: Default + Ord>() -> Heap<T> {
-        Heap::new(|a, b| a > b)
+    pub fn new<T: Default + Ord>() -> BinaryHeap<T> {
+        BinaryHeap::new(|a, b| a > b)
     }
 }
 
@@ -94,7 +94,7 @@ mod tests {
 
     #[test]
     fn test_min_heap() {
-        let mut heap = MinHeap::new();
+        let mut heap = MinBinaryHeap::new();
         heap.push(4);
         heap.push(2);
         heap.push(9);
@@ -111,7 +111,7 @@ mod tests {
 
     #[test]
     fn test_max_heap() {
-        let mut heap = MaxHeap::new();
+        let mut heap = MaxBinaryHeap::new();
         heap.push(4);
         heap.push(2);
         heap.push(9);
