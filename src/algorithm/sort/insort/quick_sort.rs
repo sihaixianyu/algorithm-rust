@@ -1,5 +1,5 @@
 pub fn quick_sort<T: Ord + Copy>(vals: &mut [T]) {
-    fn helper<T: Ord + Copy>(vals: &mut [T], s: isize, e: isize) {
+    fn sort<T: Ord + Copy>(vals: &mut [T], s: isize, e: isize) {
         if s >= e {
             return;
         }
@@ -17,15 +17,15 @@ pub fn quick_sort<T: Ord + Copy>(vals: &mut [T]) {
         }
         vals.swap(s as usize, lp);
 
-        helper(vals, s, lp as isize - 1);
-        helper(vals, lp as isize + 1, e);
+        sort(vals, s, lp as isize - 1);
+        sort(vals, lp as isize + 1, e);
     }
 
     if vals.len() == 0 {
         return
     }
 
-    helper(vals, 0, (vals.len() - 1) as isize);
+    sort(vals, 0, (vals.len() - 1) as isize);
 }
 
 #[cfg(test)]

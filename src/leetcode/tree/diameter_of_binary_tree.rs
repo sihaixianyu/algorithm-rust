@@ -8,6 +8,7 @@ pub fn diameter_of_binary_tree(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
             Some(root) => {
                 let l_len = longest(&root.borrow().left, res);
                 let r_len = longest(&root.borrow().right, res);
+                // Update global maximum
                 *res = cmp::max(*res, l_len + r_len);
 
                 cmp::max(l_len, r_len) + 1

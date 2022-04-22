@@ -1,5 +1,8 @@
 use std::{cell::RefCell, collections::VecDeque, rc::Rc};
 
+#[allow(non_upper_case_globals)]
+pub const null: i32 = i32::MAX;
+
 type Link = Option<Rc<RefCell<TreeNode>>>;
 
 #[derive(Debug, PartialEq, Eq)]
@@ -22,9 +25,6 @@ impl TreeNode {
         Rc::new(RefCell::new(self))
     }
 }
-
-#[allow(non_upper_case_globals)]
-pub const null: i32 = i32::MAX;
 
 pub struct BinaryTree {
     pub root: Link,
