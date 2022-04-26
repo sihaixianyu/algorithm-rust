@@ -183,12 +183,6 @@ mod tests {
     #[test]
     fn test_from_slice() {
         let tree = BinaryTree::from_slice(&vec![1, 2, 3, null, null, 4, 5][..]);
-        assert_eq!(5, tree.size());
-    }
-
-    #[test]
-    fn test_level_traverse() {
-        let tree = BinaryTree::from_slice(&vec![1, 2, 3, null, null, 4, 5][..]);
         let res = tree.level_traverse();
         assert_eq!(vec![1, 2, 3, 4, 5], res)
     }

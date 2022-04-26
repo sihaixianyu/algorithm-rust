@@ -1,6 +1,7 @@
-pub mod hash;
-pub mod dp;
-pub mod dfs;
-pub mod sort;
+pub mod arr;
 pub mod bfs;
+pub mod dfs;
+pub mod dp;
+pub mod list;
+pub mod str;
 pub mod tree;
