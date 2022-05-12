@@ -8,7 +8,7 @@ pub fn binary_search<T: Ord>(vals: &[T], tar: T) -> Option<usize> {
             return Some(mid);
         } else if tar < vals[mid] {
             rp = mid;
-        } else {
+        } else if tar > vals[mid] {
             lp = mid + 1;
         }
     }
