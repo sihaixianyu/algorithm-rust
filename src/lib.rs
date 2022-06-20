@@ -9,6 +9,7 @@ mod tests {
 
     #[test]
     fn test() {
-        println!("Hello World!");
+        use rand::prelude::*;
+        println!("{:?}", thread_rng().gen_range(0..=1));
     }
 }
