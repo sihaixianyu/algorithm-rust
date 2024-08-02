@@ -3,3 +3,4 @@ pub mod can_finish;
 pub mod num_islands;
 pub mod rotted_oranges;
 pub mod surrounded_regions;
+pub mod trie;
