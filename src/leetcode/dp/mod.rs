@@ -7,4 +7,3 @@ pub mod max_coins;
 pub mod max_envelopes;
 pub mod min_path_sum;
 pub mod rob;
-pub mod trap;
