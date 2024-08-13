@@ -5,5 +5,5 @@ pub mod list;
 pub mod queue;
 pub mod search;
 pub mod stack;
-pub mod str;
+pub mod string;
 pub mod tree;
