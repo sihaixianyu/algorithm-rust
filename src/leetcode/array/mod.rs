@@ -1,9 +1,10 @@
 pub mod find_kth_largest;
+pub mod first_missing_positive;
 pub mod merge_intervals;
 pub mod next_permutation;
 pub mod product_except_self;
 pub mod rotate_array;
+pub mod spiral_matrix;
 pub mod three_sum;
 pub mod trap;
 pub mod two_sum;
-pub mod first_missing_positive;

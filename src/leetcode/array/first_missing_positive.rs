@@ -11,9 +11,7 @@ impl Solution {
         for i in 0..nums.len() {
             while nums[i] > 0 && (nums[i] as usize) < len && nums[i] != nums[nums[i] as usize - 1] {
                 let tar_idx = (nums[i] - 1) as usize;
-                println!("Before ==> {:?}", &nums);
                 nums.swap(i, tar_idx);
-                println!("After ==> {:?}", &nums);
             }
         }
 
