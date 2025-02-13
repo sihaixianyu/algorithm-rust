@@ -4,6 +4,8 @@ pub mod merge_intervals;
 pub mod next_permutation;
 pub mod product_except_self;
 pub mod rotate_array;
+pub mod rotate_image;
+pub mod search_matrix;
 pub mod spiral_matrix;
 pub mod three_sum;
 pub mod trap;
