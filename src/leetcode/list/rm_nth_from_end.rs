@@ -1,24 +1,22 @@
 use crate::structure::linked_list::ListNode;
 
-// 删除链表的倒数第 N 个结点：https://leetcode.cn/problems/remove-nth-node-from-end-of-list/
-pub fn remove_nth_from_end(mut head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
-    let mut dummy = Box::new(ListNode::new(0));
-    dummy.next = head.take();
+pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
+    let dummy = ListNode{val: 0, next: head };
 
-    let mut fast = &Box::clone(&dummy);
-    let mut slow = &mut dummy;
+    let (mut fast, mut slow) = (&dummy, &dummy);
 
     for _ in 0..n {
-        fast = fast.next.as_ref().unwrap();
+        fast= fast.next.as_ref()?;
     }
 
-    while fast.next != None {
-        fast = fast.next.as_ref().unwrap();
-        slow = slow.next.as_mut().unwrap();
+    while let Some(node) = &fast.next {
+        slow = slow.next.as_ref()?;
+        fast = node;
     }
 
-    println!("{}", slow.val);
-    slow.next = slow.next.as_mut().unwrap().next.take();
+    #[allow(mutable_transmutes)]
+    let slow: &mut ListNode = unsafe { std::mem::transmute(slow) };
+    slow.next = slow.next.take()?.next;
 
     dummy.next
 }
