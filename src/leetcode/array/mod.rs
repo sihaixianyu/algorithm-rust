@@ -1,6 +1,7 @@
 pub mod find_kth_largest;
 pub mod first_missing_positive;
 pub mod merge_intervals;
+pub mod move_zeros;
 pub mod next_permutation;
 pub mod product_except_self;
 pub mod rotate_array;
