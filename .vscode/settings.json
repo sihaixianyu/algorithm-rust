@@ -1,6 +1,7 @@
 {
-    "rust-analyzer.linkedProjects": [
-        "./Cargo.toml"
-    ],
-    "rust-analyzer.showUnlinkedFileNotification": false
+    "editor.fontSize": 14,
+    "terminal.integrated.fontSize": 12,
+    "debug.console.fontSize": 12,
+    "window.commandCenter": false,
+    "workbench.layoutControl.enabled": false
 }

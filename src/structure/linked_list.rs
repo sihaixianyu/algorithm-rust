@@ -21,6 +21,18 @@ pub struct LinkedList {
     pub len: usize,
 }
 
+pub fn traverse(head: &Link) -> Vec<i32> {
+    let mut ans = vec![];
+    let mut cur = head;
+
+    while let Some(node) = cur {
+        ans.push(node.val);
+        cur = &node.next;
+    }
+
+    ans
+}
+
 impl LinkedList {
     pub fn new() -> Self {
         LinkedList { head: None, len: 0 }

@@ -1,10 +1,5 @@
 use crate::structure::linked_list::ListNode;
 
-/// @Prob: Rotate Image
-///
-/// @Link: https://leetcode.cn/problems/reverse-linked-list/submissions/602388943/?envType=study-plan-v2&envId=top-100-liked
-///
-/// @Tags: ["LinkedList", "Recursively"]
 pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     let mut prev = None;
     let mut curr = head;
