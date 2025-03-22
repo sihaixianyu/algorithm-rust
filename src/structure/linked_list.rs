@@ -1,9 +1,6 @@
-// This implementation of `Link` <-> `Option<Box<ListNode>>` is mainly for LeetCode test case.
-// If we have to hold multiple mutable references in the same lifetime, `Option<Rc<RefCell<ListNode>>>` should be considered.
-
 type Link = Option<Box<ListNode>>;
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct ListNode {
     pub val: i32,
     pub next: Link,
